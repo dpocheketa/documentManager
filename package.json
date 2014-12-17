@@ -1,0 +1,17 @@
+{
+  "name": "documentManager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^1.1.0",
+    "gulp": "^3.8.10",
+    "gulp-durandal": "^1.1.5",
+    "gulp-util": "^3.0.1"
+  }
+}
