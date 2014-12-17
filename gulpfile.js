@@ -33,7 +33,8 @@ gulp.task('css', function(){
             "lib/font-awesome/css/font-awesome.min.css",
             "css/ie10mobile.css",
             "lib/durandal/css/durandal.css",
-            "css/starterkit.css"
+            "css/starterkit.css",
+            "css/custom.css"
         ];  
     gulp
         .src(styles)
@@ -49,4 +50,9 @@ gulp.task('js', function(){
         .pipe(gulp.dest('build/js'))
 });
 
-gulp.task("default", ["durandal"])
+gulp.task('watch', function(){
+    gulp.watch("app/**/*", ["durundal"]);
+    gulp.watch("css/**/*", ["css"]);
+});
+
+gulp.task("default", ["durandal", "watch"])
