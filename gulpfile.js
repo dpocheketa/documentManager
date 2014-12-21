@@ -3,7 +3,8 @@ var
     concat = require('gulp-concat'),
     del = require('del'),
     cssMinify = require('gulp-cssmin'),
-    durandal = require('gulp-durandal')
+    durandal = require('gulp-durandal'),
+    browserSync = require('browser-sync')
 ;
 
 gulp.task('clean', function () {
@@ -20,7 +21,7 @@ gulp.task('durandal', ['js', 'css'], function () {
         baseDir: 'app',   //same as default, so not really required.
         main: 'main.js',  //same as default, so not really required.
         output: 'main.js', //same as default, so not really required.
-        minify: true,
+        minify: false,
         almond: true
     }).pipe(gulp.dest('build/app'));
 
@@ -41,6 +42,9 @@ gulp.task('css', function(){
         .pipe(concat("all.css"))
         .pipe(cssMinify())
         .pipe(gulp.dest('build/css'))
+
+    gulp.src("lib/font-awesome/fonts/*.*")
+        .pipe(gulp.dest("build/fonts"));
     
 });
 
@@ -50,9 +54,22 @@ gulp.task('js', function(){
         .pipe(gulp.dest('build/js'))
 });
 
-gulp.task('watch', function(){
-    gulp.watch("app/**/*", ["durundal"]);
-    gulp.watch("css/**/*", ["css"]);
+gulp.task('browser-sync', function() {
+    browserSync({
+        server: {
+            baseDir: "./build/"
+        }
+    });
 });
 
-gulp.task("default", ["durandal", "watch"])
+gulp.task('bs-reload', function () {
+    browserSync.reload();
+});
+
+gulp.task('watch', ['browser-sync'], function(){
+    gulp.watch("app/**/*", ["durandal", "bs-reload"]);
+    gulp.watch("css/**/*", ["css", "bs-reload"]);
+    gulp.watch("*.html", ['durandal', "bs-reload"]);
+});
+
+gulp.task("default", ["durandal", "watch"]);

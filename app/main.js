@@ -6,7 +6,8 @@
         'transitions' : '../lib/durandal/js/transitions',
         'knockout': '../lib/knockout/knockout-3.1.0',
         'bootstrap': '../lib/bootstrap/js/bootstrap',
-        'jquery': '../lib/jquery/jquery-1.9.1'
+        'jquery': '../lib/jquery/jquery-1.9.1',
+        'Q': '../lib/q/q'
     },
     shim: {
         'bootstrap': {
@@ -21,11 +22,12 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (s
     system.debug(true);
     //>>excludeEnd("build");
 
-    app.title = 'Durandal Starter Kit';
+    app.title = 'Document manager';
 
     app.configurePlugins({
         router:true,
-        dialog: true
+        dialog: true,
+        http: true
     });
 
     app.start().then(function() {

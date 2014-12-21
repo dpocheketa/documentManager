@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^1.8.1",
     "del": "^1.1.0",
     "gulp": "^3.8.10",
     "gulp-concat": "^2.4.2",
