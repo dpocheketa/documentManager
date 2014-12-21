@@ -1,13 +1,14 @@
 ﻿<section>
-    <h2 data-bind="text:displayName"></h2>
-    <blockquote data-bind="text:description"></blockquote>
-    <h3>Features</h3>
-    <ul data-bind="foreach: features">
-        <li data-bind="text:$data"></li>
-    </ul>
-    <div class="alert alert-success">
-      <h4>Read Me Please</h4>
-        For information about this template and for general documenation please visit <a href="http://www.durandaljs.com">the official site</a> and if you can't find 
-        answers to your questions there, we hope you will join our <a href="https://groups.google.com/forum/?fromgroups#!forum/durandaljs">google group</a>.
+    <div class="jumbotron bg-success">
+        <h1 data-bind="text: textInfo.title"></h1>
+        <blockquote data-bind="text: textInfo.description"></blockquote>
+        <h3>You can do next:</h3>
+        <ul data-bind="foreach: textInfo.features">
+            <li data-bind="text:$data"></li>
+        </ul>
+        <h4 data-bind="text: textInfo.beforeActions"></h4>
+        <div data-bind="foreach: textInfo.actions" class="home-buttons">
+            <a data-bind="text: $data, attr: {href: '#' + $data}" class="btn btn-success">Text</a>
+        </div>
     </div>
 </section>

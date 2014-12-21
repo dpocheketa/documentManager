@@ -1,10 +1,11 @@
-define(['knockout', 'plugins/router', 'userService'], function (ko, router, userService) {
+define(['knockout', 'userService', 'plugins/router'], function (ko, userService, router) {
 
     var viewModel = {
+        fullname: ko.observable(),
         email: ko.observable(),
         password: ko.observable(),
-        submit: submit,
 
+        submit: submit,
         canActivate: canActivate
     }
 
@@ -19,13 +20,13 @@ define(['knockout', 'plugins/router', 'userService'], function (ko, router, user
     }
 
     function submit() {
-        userService.signin(viewModel.email(), viewModel.password())
+        userService.signup(viewModel.fullname(), viewModel.email(), viewModel.password())
             .then(function () {
                 router.navigate('');
             })
             .catch(function () {
                 // handle error
-            });
+            })
     }
 
 })

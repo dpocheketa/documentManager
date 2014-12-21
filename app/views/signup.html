@@ -1,0 +1,25 @@
+<section>
+    <h1>Registration new user:</h1>
+    <form role="form" data-bind="submit: submit" class="well">
+        <div class="form-group">
+            <label for="fullName">Full name</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Enter your fullname" data-bind="value: fullname">
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" data-bind="value: email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" data-bind="value: password">
+        </div>
+        <!-- <div class="form-group">
+            <label for="department">Department</label>
+            <select name="department" id="department" data-bind="value: department, foreach: deparments">
+                <option data-bind="text: $data.name, attr: {value: $data.id}"></option>
+            </select>
+        </div> -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</section>

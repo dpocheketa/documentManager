@@ -1,3 +1,22 @@
 <section>
-	My profile
+	<div class="well">
+		<h1 data-bind="text: user.fullname"></h1>
+		<div class="container-fluid">
+			<div class="row">
+				<p class="col-md-6">Email: </p>
+				<p data-bind="text: user.username" class="col-md-6"></p>
+			</div>
+			<div class="row">
+				<p class="col-md-6">Created at:</p>
+				<p data-bind="text: new Date(user.createdAt)" class="col-md-6"></p>
+			</div>
+			<div class="row">
+				<p class="col-md-6">Access rights level: </p>
+				<p class="col-md-6">
+					<b data-bind="text: user.role"></b>
+					(<span data-bind="text: description"></span>)
+				</p>
+			</div>
+		</div>
+	</div>
 </section>

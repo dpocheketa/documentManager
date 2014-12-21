@@ -21,13 +21,13 @@
                     <i class="fa fa-spinner fa-spin fa-2x"></i>
                 </li>
             </ul>
-
+            
             <ul class="navbar-nav navbar-right nav">
                 <li>
-                    <a href="#profile">My profile</a>
+                    <a href="#profile" data-bind="text: username"></a>
                 </li>
                 <li>
-                    <a href="#auth">Login</a>
+                    <a href data-bind="click: logout">Logout</a>
                 </li>
             </ul>
         </div>
