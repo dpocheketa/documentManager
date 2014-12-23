@@ -37,7 +37,20 @@ define(['knockout', 'plugins/router', 'userService', 'dataService', 'durandal/ap
 
         userService.signup(viewModel.fullname(), viewModel.email(), viewModel.password(), viewModel.department().objectId)
             .then(function () {
-                router.navigate('');
+
+                userService.signin(viewModel.email(), viewModel.password()).then(function (data){
+
+                    viewModel.email("");
+                    viewModel.password("");
+                    viewModel.fullname("");
+                    viewModel.department("");
+
+                    router.navigate('#/dashboard');
+                }).catch(function(){
+                    
+                    router.navigate('');
+                })
+
             })
             .catch(function (response) {
                 var message = "Error";

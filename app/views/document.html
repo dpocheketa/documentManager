@@ -1,0 +1,44 @@
+<section>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h1>Document <b data-bind="text: document.name"></b></h1>
+			<a href class="btn btn-success" data-bind="text: currentStep.action, click: nextStep"></a>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-8 well">
+						<div class="row">
+							<p class="col-md-6">
+								Creating date:
+							</p>
+							<p class="col-md-6" data-bind="text: new Date(document.createdAt)"></p>
+						</div>
+						<div class="row">
+							<p class="col-md-6">Status: </p>
+							<p class="col-md-6" data-bind="text: showStatus(document.status)"></p>
+						</div>
+						<div class="row">
+							<p class="col-md-6">Type: </p>
+							<p class="col-md-6" data-bind="text: showType(document.type)"></p>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<h4>Properties:</h4>
+								<div class="list-group" data-bind="foreach: document.properties">
+									<a class="list-group-item" data-bind="text: $data.key + ': ' + $data.value"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<h4>Current path:</h4>
+						<div class="list-group" data-bind="foreach: pathSteps">
+							<a class="list-group-item" data-bind="text: $data.name, css: {active: $data.objectId == $parent.document.status}"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

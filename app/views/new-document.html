@@ -2,16 +2,31 @@
 
 	<h1>Create New document</h1>
 
-	<form name="newDocumentForm" class='well container-fluid'>
-		<div class="col-md-6">
-			<div class="form-group">
-				<label for="documentName">Document name</label>
-				<input type="text" name="documentName" id="documentName" class="form-control" data-bind="value: documentName" placeholder="Enter new document name">
+	<form name="newDocumentForm" class='well container-fluid' data-bind="submit: createDocument">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="documentName">Document name</label>
+					<input type="text" name="documentName" id="documentName" class="form-control" data-bind="value: documentName" placeholder="Enter new document name">
+				</div>
 			</div>
-			<div class="form-group">
-				<label for="documentType">Document type</label>
-				<select name="documentType" id="documentType" class="form-control" data-bind="value: documentType, options: documentTypes, optionsText: 'name', optionsCaption: 'Choose type of document', event: {change: loadFields}"></select>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="documentType">Document type</label>
+					<select name="documentType" id="documentType" class="form-control" data-bind="value: documentType, options: documentTypes, optionsText: 'name', optionsCaption: 'Choose type of document', event: {change: loadFields}"></select>
+				</div>
 			</div>
+		</div>
+		<div class="row" data-bind="foreach: documentFields">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label data-bind="text: $data.name, attr: {for: $data.name}"></label>
+					<input type="text" class="form-control" data-bind="value: $parent.properties[$data.name], attr: {name: $data.name, id: $data.name, placeholder: 'Enter ' + $data.name}">
+				</div>
+			</div>
+		</div>
+		<div>
+			<button class="btn btn-primary">Create</button>
 		</div>
 	</form>
 

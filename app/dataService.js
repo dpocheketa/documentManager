@@ -54,16 +54,68 @@ define(['Q','plugins/http','userService'], function (Q, http, userService) {
             return dfd.promise;
         };
 
+        this.create = function(data){
+            var dfd = Q.defer();
+
+            var url = basicUrl;
+
+            if (userService.session) {
+                var acl = {};
+                acl[userService.session.objectId] = {
+                    "read": true,
+                    "write": true
+                };
+                acl["*"] = {
+                    "read": true,
+                    "write": true
+                }
+                data.ACL = acl;
+            }
+
+            http.post(url, data, headers)
+                .done(function (response) {
+                    if (response) {
+                        dfd.resolve(response || {});
+                    } else {
+                        dfd.reject();
+                    }
+                })
+                .fail(function (error) {
+                    console.log("error: ", url, error);
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        };
+
+        this.update = function (data) {
+            var dfd = Q.defer();
+
+            var url = basicUrl + data.objectId;
+
+            http.put(url, data, headers)
+                .done(function (response) {
+                    dfd.resolve(response);
+                })
+                .fail(function (error) {
+                    dfd.reject(error);
+                });
+
+            return dfd.promise;
+        }
+
     };
 
     var departments = new Entity('https://api.parse.com/1/classes/departments/');
 	var documents = new Entity('https://api.parse.com/1/classes/document/');
     var documentTypes = new Entity('https://api.parse.com/1/classes/documentTypes/');
+    var pathSteps = new Entity('https://api.parse.com/1/classes/pathSteps/');
 
 	var data = {
 		departments: departments,
         documents: documents,
-        documentTypes: documentTypes
+        documentTypes: documentTypes,
+        pathSteps: pathSteps
 	};
 
 	return data;

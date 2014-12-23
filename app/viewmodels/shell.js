@@ -10,7 +10,8 @@
                 { route: 'signin', moduleId: 'viewmodels/signin', nav: false },
                 { route: 'signup', moduleId: 'viewmodels/signup', nav: false },
                 { route: 'dashboard', moduleId: 'viewmodels/dashboard', nav: true },
-                { route: 'new-document', moduleId: 'viewmodels/new-document', nav: true }
+                { route: 'new-document', moduleId: 'viewmodels/new-document', nav: true },
+                { route: 'document/:id', moduleId: 'viewmodels/document', nav: false }
             ]).buildNavigationModel();
 
             
