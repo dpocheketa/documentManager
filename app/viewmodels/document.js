@@ -1,4 +1,6 @@
-define(["plugins/router", "dataService", "knockout", "Q", "viewService"], function (router, dataService, ko, Q, viewService){
+define(["plugins/router", "dataService", "knockout", "Q", "viewService", "lodash"], 
+	function (router, dataService, ko, Q, viewService, _){
+
 	var viewModel = new viewService();
 
 	viewModel.activate = function(id){
@@ -16,26 +18,23 @@ define(["plugins/router", "dataService", "knockout", "Q", "viewService"], functi
 	};
 
 	viewModel.showType = function(typeId){
-		var types = viewModel.documentTypes;
+			var types = viewModel.documentTypes;
+			var typeName = _.find(types, function(type){
+				return typeId == type.objectId;
+			});
 
-		for (var i = 0; i < types.length; i++) {
-			if (types[i].objectId == typeId) typeName = types[i].name;
+			typeName = (typeName && typeName.name) ? typeName.name : '';
+
+			return typeName;
 		};
 
-
-		return typeName;
-	};
-
-	viewModel.showStatus = function(status){
+	viewModel.showStatus = function(statusId){
 		var statuses = viewModel.pathSteps;
-		var statusName = '';
+		var statusName = _.find(statuses, function(status){
+			return status.objectId == statusId
+		});
 
-		for (var i = 0; i < statuses.length; i++) {
-			if (statuses[i].objectId == status) {
-				statusName = statuses[i].name;
-				break;
-			}
-		};
+		statusName = (statusName && statusName.name) ? statusName.name : '';
 
 		return statusName;
 	};
@@ -56,14 +55,10 @@ define(["plugins/router", "dataService", "knockout", "Q", "viewService"], functi
 	function getCurrentStep(){
 		var pathSteps = viewModel.pathSteps;
 		var status = viewModel.document.status;
-		var cur = {};
-
-		for (var i = 0; i < pathSteps.length; i++) {
-			if (pathSteps[i].objectId == status) {
-				cur = pathSteps[i];
-				break;
-			}
-		};
+		
+		var cur = _.find(pathSteps, function(step){
+			return step.objectId == status;
+		});
 
 		return cur;
 	}

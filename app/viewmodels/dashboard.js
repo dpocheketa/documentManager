@@ -1,4 +1,5 @@
-define(["userService", "viewService", "dataService", "knockout", "Q"], function (userService, viewService, dataService, ko, Q) {
+define(["userService", "viewService", "dataService", "knockout", "Q", "lodash"], 
+	function (userService, viewService, dataService, ko, Q, _) {
 
 	var viewModel = new viewService();
 
@@ -12,8 +13,8 @@ define(["userService", "viewService", "dataService", "knockout", "Q"], function 
 						viewModel.documentTypes = data[1];
 						viewModel.pathSteps = data[2];
 
-						viewModel.documents = filter(data[0], function(item){
-							var pathStep = find(viewModel.pathSteps, function(step){
+						viewModel.documents = _.filter(data[0], function(item){
+							var pathStep = _.find(viewModel.pathSteps, function(step){
 								return step.objectId == item.status;
 							});
 
@@ -24,59 +25,26 @@ define(["userService", "viewService", "dataService", "knockout", "Q"], function 
 
 		viewModel.showType = function(typeId){
 			var types = viewModel.documentTypes;
-			var typeName = '';
+			var typeName = _.find(types, function(type){
+				return typeId == type.objectId;
+			});
 
-			for (var i = 0; i < types.length; i++) {
-				if (types[i].objectId == typeId) {
-					typeName = types[i].name;
-					break;
-				}
-			};
-
+			typeName = (typeName && typeName.name) ? typeName.name : '';
 
 			return typeName;
 		};
 
-		viewModel.showStatus = function(status){
+		viewModel.showStatus = function(statusId){
 			var statuses = viewModel.pathSteps;
-			var statusName = '';
+			var statusName = _.find(statuses, function(status){
+				return status.objectId == statusId
+			});
 
-			for (var i = 0; i < statuses.length; i++) {
-				if (statuses[i].objectId == status) {
-					statusName = statuses[i].name;
-					break;
-				}
-			};
+			statusName = (statusName && statusName.name) ? statusName.name : '';
 
 			return statusName;
 		};
 
     return viewModel;
 
-    function filter(array, callback){
-    	var result = [];
-
-    	for (var i = 0; i < array.length; i++) {
-    		
-	    	if (callback(array[i])) {
-	    		result.push(array[i]);
-	    	};
-
-    	};
-
-    	return result;
-    };
-
-    function find(array, callback) {
-    	var item = null;
-
-    	for (var i = 0; i < array.length; i++) {
-    		if (callback(array[i])) {
-    			item = array[i];
-    			break;
-    		}
-    	};
-
-    	return item;
-    }
 });
