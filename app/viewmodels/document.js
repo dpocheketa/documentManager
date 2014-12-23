@@ -1,5 +1,5 @@
-define(["plugins/router", "dataService", "knockout", "Q"], function (router, dataService, ko, Q){
-	var viewModel = {};
+define(["plugins/router", "dataService", "knockout", "Q", "viewService"], function (router, dataService, ko, Q, viewService){
+	var viewModel = new viewService();
 
 	viewModel.activate = function(id){
 		return Q.all([
@@ -12,7 +12,6 @@ define(["plugins/router", "dataService", "knockout", "Q"], function (router, dat
 					viewModel.pathSteps = data[2];
 
 					viewModel.currentStep = getCurrentStep();
-					console.log(viewModel.currentStep)
 				});
 	};
 
