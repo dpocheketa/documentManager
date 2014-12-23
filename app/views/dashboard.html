@@ -1,0 +1,14 @@
+<section>
+	<h1>Dashboard</h1>
+	<div class="well row">
+		<div class="col-md-6">
+			<h3>My documents:</h3>
+			<ul class="list-group" data-bind="foreach: documents">
+				<li class="list-group-item" data-bind="text: $data.name"></li>
+			</ul>
+		</div>
+		<div class="col-md-6">
+			<a href="#/new-document" class="btn btn-primary">New document</a>
+		</div>
+	</div>
+</section>

@@ -7,8 +7,8 @@
 				<p data-bind="text: user.username" class="col-md-6"></p>
 			</div>
 			<div class="row">
-				<p class="col-md-6">Created at:</p>
-				<p data-bind="text: new Date(user.createdAt)" class="col-md-6"></p>
+				<p class="col-md-6">Department: </p>
+				<p data-bind="text: departmentName" class="col-md-6"></p>
 			</div>
 			<div class="row">
 				<p class="col-md-6">Access rights level: </p>
@@ -16,6 +16,10 @@
 					<b data-bind="text: user.role"></b>
 					(<span data-bind="text: description"></span>)
 				</p>
+			</div>
+			<div class="row">
+				<p class="col-md-6">Created at:</p>
+				<p data-bind="text: new Date(user.createdAt)" class="col-md-6"></p>
 			</div>
 		</div>
 	</div>

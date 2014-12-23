@@ -1,14 +1,11 @@
 ﻿<section>
-    <div class="jumbotron bg-success">
+    <div class="jumbotron text-center">
         <h1 data-bind="text: textInfo.title"></h1>
         <blockquote data-bind="text: textInfo.description"></blockquote>
-        <h3>You can do next:</h3>
-        <ul data-bind="foreach: textInfo.features">
-            <li data-bind="text:$data"></li>
-        </ul>
+        
         <h4 data-bind="text: textInfo.beforeActions"></h4>
         <div data-bind="foreach: textInfo.actions" class="home-buttons">
-            <a data-bind="text: $data, attr: {href: '#' + $data}" class="btn btn-success">Text</a>
+            <a data-bind="text: $data, attr: {href: '#' + $data}" class="btn btn-success btn-lg">Text</a>
         </div>
     </div>
 </section>

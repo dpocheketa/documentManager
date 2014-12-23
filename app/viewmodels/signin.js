@@ -21,7 +21,7 @@ define(['knockout', 'plugins/router', 'userService'], function (ko, router, user
     function submit() {
         userService.signin(viewModel.email(), viewModel.password())
             .then(function () {
-                router.navigate('');
+                router.navigate('#/dashboard');
             })
             .catch(function () {
                 // handle error

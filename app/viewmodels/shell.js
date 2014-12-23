@@ -7,9 +7,10 @@
             router.map([
                 { route: '', title:'Home', moduleId: 'viewmodels/home', nav: true },
                 { route: 'profile', moduleId: 'viewmodels/profile', nav: false },
-                { route: 'flickr', moduleId: 'viewmodels/flickr', nav: true },
                 { route: 'signin', moduleId: 'viewmodels/signin', nav: false },
-                { route: 'signup', moduleId: 'viewmodels/signup', nav: false }
+                { route: 'signup', moduleId: 'viewmodels/signup', nav: false },
+                { route: 'dashboard', moduleId: 'viewmodels/dashboard', nav: true },
+                { route: 'new-document', moduleId: 'viewmodels/new-document', nav: true }
             ]).buildNavigationModel();
 
             

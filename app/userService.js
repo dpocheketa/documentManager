@@ -29,7 +29,7 @@ define(['Q', 'plugins/http', 'knockout'], function (Q, http, ko) {
 
     return userService;
 
-    function signup(fullname, email, password, role) {
+    function signup(fullname, email, password, departmentId, role) {
         var dfd = Q.defer();
 
         var url = 'https://api.parse.com/1/users/';
@@ -38,15 +38,16 @@ define(['Q', 'plugins/http', 'knockout'], function (Q, http, ko) {
             fullname: fullname,
             username: email,
             password: password,
-            role: role || user
+            departmentId: departmentId,
+            role: role || 'user'
         };
 
         http.post(url, user, headers)
-            .done(function () {
-                dfd.resolve();
+            .done(function (data) {
+                dfd.resolve(data);
             })
-            .fail(function () {
-                dfd.reject();
+            .fail(function (data) {
+                dfd.reject(data);
             });
 
         return dfd.promise;
@@ -85,7 +86,7 @@ define(['Q', 'plugins/http', 'knockout'], function (Q, http, ko) {
         var dfd = Q.defer();
 
         userService.session = null;
-        userService.username = null;
+        userService.username('');
 
         dfd.resolve();
 

@@ -17,3 +17,8 @@ html,body{
 .home-buttons{
 	text-transform: capitalize;
 }
+
+.sign-form{
+	max-width: 960px;
+	margin: 0 auto;
+}

@@ -1,6 +1,6 @@
 <section>
-    <h1>Registration new user:</h1>
-    <form role="form" data-bind="submit: submit" class="well">
+    <h1 class="text-center">Registration new user:</h1>
+    <form role="form" data-bind="submit: submit" class="well sign-form">
         <div class="form-group">
             <label for="fullName">Full name</label>
             <input type="text" class="form-control" id="fullName" placeholder="Enter your fullname" data-bind="value: fullname">
@@ -13,12 +13,11 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" placeholder="Password" data-bind="value: password">
         </div>
-        <!-- <div class="form-group">
-            <label for="department">Department</label>
-            <select name="department" id="department" data-bind="value: department, foreach: deparments">
-                <option data-bind="text: $data.name, attr: {value: $data.id}"></option>
+        <div class="form-group">
+            <label for="department">Choose department:</label>
+            <select name="department" id="department" class="form-control"  data-bind="value: department, options: departmentsList, optionsText: 'name', optionsCaption: 'Choose department'">
             </select>
-        </div> -->
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
