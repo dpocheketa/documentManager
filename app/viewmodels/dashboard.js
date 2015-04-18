@@ -13,13 +13,8 @@ define(["userService", "viewService", "dataService", "knockout", "Q", "lodash"],
 						viewModel.documentTypes = data[1];
 						viewModel.pathSteps = data[2];
 
-						viewModel.documents = _.filter(data[0], function(item){
-							var pathStep = _.find(viewModel.pathSteps, function(step){
-								return step.objectId == item.status;
-							});
+						viewModel.documents = filterDocumentsByAccess(data[0], userService.session);
 
-							return pathStep.departmentId == userService.session.departmentId;
-						});
 					});
 		};
 
@@ -46,5 +41,27 @@ define(["userService", "viewService", "dataService", "knockout", "Q", "lodash"],
 		};
 
     return viewModel;
+
+    function filterDocumentsByAccess(documents, accessLevel){
+    	console.log("accessLevel", accessLevel.role);
+    	if (accessLevel.role === 'admin') return documents;
+    	if (accessLevel.role === 'departmentHead') {
+
+	    	var filteredDocuments = _.filter(documents, function(item){
+				var pathStep = _.find(viewModel.pathSteps, function(step){
+
+					return (step.objectId == item.status);
+				});
+
+				return (pathStep.departmentId == userService.session.departmentId);
+			});
+
+			return filteredDocuments;
+    	} else {
+
+    		//simple user functionality
+    		return [];
+    	}
+    };
 
 });

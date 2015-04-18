@@ -7,7 +7,7 @@ define(['Q', 'plugins/http', 'knockout'], function (Q, http, ko) {
 
     var accessLevels = {
             admin: {
-                description: "Can create users"
+                description: "Can create users and new documents, can see all documents in company"
             },
             departmentHead: {
                 description: "Can choose wich user are responsible for document"

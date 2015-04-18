@@ -12,7 +12,7 @@ define(['knockout', 'plugins/router', 'userService'], function (ko, router, user
 
     function canActivate() {
         if (userService.session) {
-            return { redirect: '' };
+            return { redirect: '#/dashboard' };
         }
 
         return true;

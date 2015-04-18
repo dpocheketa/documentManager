@@ -17,7 +17,7 @@ define(['knockout', 'plugins/router', 'userService', 'dataService', 'durandal/ap
 
     function canActivate() {
         if (userService.session) {
-            return { redirect: '' };
+            return { redirect: '#/dashboard' };
         };
 
         return true;
