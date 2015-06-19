@@ -1,9 +1,10 @@
-define(["plugins/router", "dataService", "knockout", "Q", "viewService", "lodash"], 
-	function (router, dataService, ko, Q, viewService, _){
+define(["plugins/router", "userService", "dataService", "knockout", "Q", "viewService", "lodash"], 
+	function (router, userService, dataService, ko, Q, viewService, _){
 
 	var viewModel = new viewService();
 
 	viewModel.activate = function(id){
+		
 		return Q.all([
 					dataService.documents.getItem(id),
 					dataService.documentTypes.getList(),
@@ -11,9 +12,10 @@ define(["plugins/router", "dataService", "knockout", "Q", "viewService", "lodash
 				]).then(function(data){
 					viewModel.document = data[0];
 					viewModel.documentTypes = data[1];
-					viewModel.pathSteps = data[2];
-
+					viewModel.pathSteps = filterPathSteps(data[2]);
 					viewModel.currentStep = getCurrentStep();
+
+					viewModel.userHasPermission = hasPermission(userService.session)
 				});
 	};
 
@@ -42,12 +44,19 @@ define(["plugins/router", "dataService", "knockout", "Q", "viewService", "lodash
 	viewModel.nextStep = function(){
 		var next = viewModel.currentStep.nextStep;
 		var doc = viewModel.document;
+		var step = getNextStep();
+		var departmentId = step.departmentId;
 
-		doc.status = next;
+		doc.status = next;		
 
-		dataService.documents.update(doc).then(function(data){
-			router.navigate('dashboard');
+		dataService.departments.getItem(departmentId).then(function(result){
+			console.log(result);
+			doc.responsible = result.head.objectId;	
+			dataService.documents.update(doc).then(function(data){
+				router.navigate('dashboard');
+			});
 		});
+
 	};
 
 	return viewModel
@@ -61,5 +70,54 @@ define(["plugins/router", "dataService", "knockout", "Q", "viewService", "lodash
 		});
 
 		return cur;
-	}
+	};
+
+	function filterPathSteps(steps){
+		var result = [];
+		var docSteps = getDocumentSteps();
+
+		for (var i = 0; i < steps.length; i++) {
+			var id = steps[i].objectId;
+
+			if (docSteps.indexOf(id) !== -1) {
+				result.push(steps[i]);
+			}
+		};
+
+		return result;
+	};
+
+	function getDocumentSteps(){
+		var typeId = viewModel.document.type;
+		var types = viewModel.documentTypes;
+		var type = _.find(types, function(type){
+			return (typeId == type.objectId);
+		});
+	
+		return type.path;
+
+	};
+
+	function getNextStep(){
+		var pathSteps = viewModel.pathSteps;
+		var next = viewModel.currentStep.nextStep;
+		
+		var nextStep = _.find(pathSteps, function(step){
+			return step.objectId == next;
+		});
+
+		return nextStep;
+	};
+
+	function hasPermission(user) {
+		var userDepartment = user.departmentId;
+		var isHead = (user.role === 'departmentHead');
+console.log(viewModel.document.responsible);
+console.log(user.objectId);
+console.log(isHead);
+console.log(viewModel.document.status);
+console.log(userDepartment);
+		return (viewModel.document.responsible === user.objectId) || (isHead && (viewModel.currentStep.departmentId === userDepartment));
+	};
+
 });

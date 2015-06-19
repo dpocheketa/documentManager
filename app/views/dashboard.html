@@ -2,27 +2,69 @@
 	<h1>Dashboard</h1>
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<a href="#/new-document" class="btn btn-primary">New document</a>
+			<div data-bind="if: !isAdmin()">
+				<a href="#/new-document" class="btn btn-primary">New document</a>
+			</div>
 		</div>
 		<div class="panel-body">
-			<h3>My documents:</h3>
-			
-			<table class="table table-bordered table-striped">
-				<thead>
-					<th>Name</th>
-					<th>Created at</th>
-					<th>Status</th>
-					<th>Type</th>
-				</thead>
-				<tbody data-bind="foreach: documents">
-					<tr>
-						<td><a data-bind="text: $data.name, attr: {href: '#/document/' + $data.objectId}"></a></td>
-						<td data-bind="text: new Date($data.createdAt)"></td>
-						<td data-bind="text: $parent.showStatus($data.status)"></td>
-						<td data-bind="text: $parent.showType($data.type)"></td>
-					</tr>
-				</tbody>
-			</table>
+			<div data-bind="if: isUser()">	
+				<h3>My documents:</h3>
+				
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th>Name</th>
+						<th>Created at</th>
+						<th>Status</th>
+						<th>Type</th>
+					</thead>
+					<tbody data-bind="foreach: documents">
+						<tr>
+							<td><a data-bind="text: $data.name, attr: {href: '#/document/' + $data.objectId}"></a></td>
+							<td data-bind="text: new Date($data.createdAt)"></td>
+							<td data-bind="text: $parent.showStatus($data.status)"></td>
+							<td data-bind="text: $parent.showType($data.type)"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div data-bind="if: isAdmin()">	
+				<h3>Departments:</h3>
+
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th>Name</th>
+						<th>Department head</th>
+					</thead>
+					<tbody data-bind="foreach: departments">
+						<tr>
+							<td><a data-bind="text: $data.name, attr: {href: '#/department/' + $data.objectId}"></a></td>
+							<td data-bind="text: $parent.showDepartmentHead($data.head)"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div data-bind="if: isDepartmentHead()">	
+				<h3>All department documents:</h3>
+				
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th>Name</th>
+						<th>Created at</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>Responsible person</th>
+					</thead>
+					<tbody data-bind="foreach: documents">
+						<tr>
+							<td><a data-bind="text: $data.name, attr: {href: '#/document/' + $data.objectId}"></a></td>
+							<td data-bind="text: new Date($data.createdAt)"></td>
+							<td data-bind="text: $parent.showStatus($data.status)"></td>
+							<td data-bind="text: $parent.showType($data.type)"></td>
+							<td data-bind="text: $parent.showPeople($data.responsible)"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </section>

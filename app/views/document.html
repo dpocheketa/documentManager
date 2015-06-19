@@ -1,8 +1,10 @@
 <section>
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h1>Document <b data-bind="text: document.name"></b></h1>
-			<a href class="btn btn-success" data-bind="text: currentStep.action, click: nextStep"></a>
+			<h1><b data-bind="text: document.name"></b></h1>
+			<div data-bind="if: userHasPermission">
+				<a href class="btn btn-success" data-bind="text: currentStep.action, click: nextStep"></a>
+			</div>
 		</div>
 		<div class="panel-body">
 			<div class="container-fluid">

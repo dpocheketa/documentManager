@@ -1,7 +1,9 @@
 define(function(){
 	return {
 		find: find,
-		filter: filter
+		filter: filter,
+        contains: contains,
+        each: each
 	};
 
 	function find(array, callback) {
@@ -30,4 +32,14 @@ define(function(){
 
     	return result;
     };
+
+    function contains(array, value){
+        return (array.indexOf(value) !== -1);
+    };
+
+    function each(array, callback){
+        for (var i = 0; i < array.length; i++) {
+            callback(array[i]);
+        };
+    }
 });

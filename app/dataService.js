@@ -110,12 +110,14 @@ define(['Q','plugins/http','userService'], function (Q, http, userService) {
 	var documents = new Entity('https://api.parse.com/1/classes/document/');
     var documentTypes = new Entity('https://api.parse.com/1/classes/documentTypes/');
     var pathSteps = new Entity('https://api.parse.com/1/classes/pathSteps/');
+    var users = new Entity('https://api.parse.com/1/users/');
 
 	var data = {
 		departments: departments,
         documents: documents,
         documentTypes: documentTypes,
-        pathSteps: pathSteps
+        pathSteps: pathSteps, 
+        users: users
 	};
 
 	return data;

@@ -25,8 +25,25 @@
 				</div>
 			</div>
 		</div>
+		<div class="row" data-bind="if: typeChosen">
+			<div class="col-sm-6" data-bind="ifnot: changeMode">
+				<div class="form-group">
+					<label>Responsible person:</label>
+					<p class="form-control-static">
+						<span data-bind="text: showResponsiblePerson()"></span>
+						<span class="btn btn-default pull-right" data-bind="click: switchChangeMode, text: 'Change'"></span>
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-6" data-bind="if: changeMode">
+				<div class="form-group">
+					<label>Choose responsible person:</label>
+					<select name="responsiblePerson" id="responsiblePerson" class="form-control" data-bind="value: responsible, options: people, optionsText: 'fullname', optionsCaption: 'Choose responsible person', event: {change: switchChangeMode}"></select>
+				</div>
+			</div>
+		</div>
 		<div>
-			<button class="btn btn-primary">Create</button>
+			<button class="btn btn-primary" data-bind="attr: {disabled: changeMode}">Create</button>
 		</div>
 	</form>
 
